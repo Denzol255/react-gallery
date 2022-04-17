@@ -1,13 +1,30 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "./components/Loader";
+import NavbarComponent from "./components/NavbarComponent";
+import PhotosList from "./components/PhotosList";
+import { useFetching } from "./hooks/useFetching";
 import { fetchPhotosAction } from "./store/photosReducer";
 
 function App() {
   const dispatch = useDispatch();
-  const photos = useSelector((state) => state.photos.photos);
+
+  const [fetchPhotos, isPhotosLoading, photosError] = useFetching(() => {
+    dispatch(fetchPhotosAction());
+  });
+
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
+
   return (
     <div className='App'>
-      <button onClick={() => dispatch(fetchPhotosAction())}>Get photos</button>
-      <div>{JSON.stringify(photos, null, 2)}</div>
+      <NavbarComponent />
+      <div style={{ paddingTop: 60 }}>
+        {photosError && <p>Произошла ошибка {photosError}</p>}
+        {isPhotosLoading ? <Loader /> : <PhotosList />}
+      </div>
     </div>
   );
 }

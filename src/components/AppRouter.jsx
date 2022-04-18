@@ -9,7 +9,7 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path='/' element={<Gallery />}></Route>
-      <Route path='/:id' element={<PhotoIdPage />}></Route>
+      <Route exact path='/photo/:id' element={<PhotoIdPage />}></Route>
       <Route path='/about' element={<About />}></Route>
       <Route path='/error' element={<Error />}></Route>
       <Route path='*' element={<Navigate to='/error' />} />

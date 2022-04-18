@@ -20,7 +20,7 @@ const PhotosList = () => {
                   className='card-img img-fluid'
                 />
                 <Card.ImgOverlay>
-                  <Button onClick={() => navigate(`/${photo.id}`)}>
+                  <Button onClick={() => navigate(`photo/${photo.id}`)}>
                     Подробнее
                   </Button>
                 </Card.ImgOverlay>

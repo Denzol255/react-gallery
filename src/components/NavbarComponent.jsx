@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Nav, Navbar, Container, Offcanvas } from "react-bootstrap";
+import { Nav, Navbar, Container, Offcanvas, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import avatar from "../images/avatar.png";
 
 const NavbarComponent = () => {
   const [show, setShow] = useState(false);
@@ -31,6 +32,9 @@ const NavbarComponent = () => {
                 <Nav.Link onClick={handleClose}>Обо мне</Nav.Link>
               </LinkContainer>
             </Nav>
+            <Image className='mt-4' src={avatar} roundedCircle></Image>
+            <div>Денис Золотарев</div>
+            <a href='mailto:denzoloto@gmail.com'>denzoloto@gmail.com</a>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

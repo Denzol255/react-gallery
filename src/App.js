@@ -6,6 +6,7 @@ import NavbarComponent from "./components/NavbarComponent";
 import PhotosList from "./components/PhotosList";
 import { useFetching } from "./hooks/useFetching";
 import { fetchPhotosAction } from "./store/photosReducer";
+import "./styles/style.scss";
 
 function App() {
   const dispatch = useDispatch();

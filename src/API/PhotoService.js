@@ -12,4 +12,10 @@ export default class PhotoServices {
     );
     return responce.data;
   }
+  static async getById(id) {
+    const responce = await axios.get(
+      "https://jsonplaceholder.typicode.com/photos/" + id
+    );
+    return responce.data;
+  }
 }

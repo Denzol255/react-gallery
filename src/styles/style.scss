@@ -1,6 +1,44 @@
+button {
+  background-color: inherit;
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
 .container {
   display: flex;
   justify-content: center;
+  padding-top: 60px;
 }
 
 .card {
@@ -22,4 +60,7 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s ease 0s;
+}
+
+.back-to-main {
 }

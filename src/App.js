@@ -6,27 +6,16 @@ import NavbarComponent from "./components/NavbarComponent";
 import PhotosList from "./components/PhotosList";
 import { useFetching } from "./hooks/useFetching";
 import { fetchPhotosAction } from "./store/photosReducer";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
 import "./styles/style.scss";
 
 function App() {
-  const dispatch = useDispatch();
-
-  const [fetchPhotos, isPhotosLoading, photosError] = useFetching(() => {
-    dispatch(fetchPhotosAction());
-  });
-
-  useEffect(() => {
-    fetchPhotos();
-  }, []);
-
   return (
-    <div className='App'>
+    <BrowserRouter>
       <NavbarComponent />
-      <div style={{ paddingTop: 60 }}>
-        {photosError && <p>Произошла ошибка {photosError}</p>}
-        {isPhotosLoading ? <Loader /> : <PhotosList />}
-      </div>
-    </div>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 

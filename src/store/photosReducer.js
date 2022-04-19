@@ -14,6 +14,7 @@ const defaultState = {
   singlePhoto: {},
 };
 
+// Reducer для получения фото
 export default function photosReducer(state = defaultState, action) {
   switch (action.type) {
     case LOAD_PHOTOS_LOADING:

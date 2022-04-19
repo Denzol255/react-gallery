@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+// Страница для перехода по несуществующим ссылкам
 const Error = () => {
   return (
     <Container>

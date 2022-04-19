@@ -2,7 +2,10 @@ import React from "react";
 import { Nav, Navbar, Container, Offcanvas } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { hideModalAction, showModalAction } from "../store/modalReducer";
+import {
+  hideModalAction,
+  showModalAction,
+} from "../store/action-creators/action-creators";
 import Info from "./Info";
 
 const NavbarComponent = () => {

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Сервис для получения одного фото или нескольких с jsonplaceholder
 export default class PhotoServices {
   static async getAll() {
     const responce = await axios.get(

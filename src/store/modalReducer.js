@@ -1,10 +1,10 @@
+import { SHOW_MODAL, HIDE_MODAL } from "./actions/actions";
+
 const defaultState = {
   modal: false,
 };
 
-export const SHOW_MODAL = "SHOW_MODAL";
-export const HIDE_MODAL = "HIDE_MODAL";
-
+// Reducer для отображения модального окна
 export default function modalReducer(state = defaultState, action) {
   switch (action.type) {
     case SHOW_MODAL:
@@ -15,6 +15,3 @@ export default function modalReducer(state = defaultState, action) {
       return state;
   }
 }
-
-export const showModalAction = () => ({ type: SHOW_MODAL });
-export const hideModalAction = () => ({ type: HIDE_MODAL });

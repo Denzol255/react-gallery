@@ -1,23 +1,37 @@
-import { put, takeEvery, call } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 import PhotoServices from "../API/PhotoService";
 import {
-  FETCH_PHOTOS,
-  FETCH_SINGLE_PHOTO,
-  setPhotosAction,
-  setSinglePhotoAction,
-} from "../store/photosReducer";
+  loadPhotosSuccessAction,
+  loadPhotosErrorAction,
+  loadSinglePhotoSuccessAction,
+  loadSinglePhotoErrorAction,
+} from "../store/action-creators/action-creators";
+import {
+  LOAD_PHOTOS_LOADING,
+  LOAD_SINGLE_PHOTO_LOADING,
+} from "../store/actions/actions";
+import { delay, fetchData } from "../utils/secondaryFunctions";
 
 function* fetchPhotosWorker() {
-  const data = yield call(() => PhotoServices.getAll());
-  yield put(setPhotosAction(data));
+  try {
+    const data = yield fetchData(PhotoServices.getAll);
+    yield delay(500);
+    yield put(loadPhotosSuccessAction(data));
+  } catch (e) {
+    yield put(loadPhotosErrorAction(e.message));
+  }
 }
 
 function* fetchSinglePhotoWorker(action) {
-  const photo = yield call(() => PhotoServices.getById(action.payload));
-  yield put(setSinglePhotoAction(photo));
+  try {
+    const data = yield fetchData(() => PhotoServices.getById(action.payload));
+    yield delay(500);
+    yield put(loadSinglePhotoSuccessAction(data));
+  } catch (e) {
+    yield put(loadSinglePhotoErrorAction(e.message));
+  }
 }
-
 export function* photosWatcher() {
-  yield takeEvery(FETCH_PHOTOS, fetchPhotosWorker);
-  yield takeEvery(FETCH_SINGLE_PHOTO, fetchSinglePhotoWorker);
+  yield takeEvery(LOAD_PHOTOS_LOADING, fetchPhotosWorker);
+  yield takeEvery(LOAD_SINGLE_PHOTO_LOADING, fetchSinglePhotoWorker);
 }

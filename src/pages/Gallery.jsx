@@ -1,28 +1,30 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import PhotosList from "../components/PhotosList";
-import { useFetching } from "../hooks/useFetching";
-import { fetchPhotosAction } from "../store/photosReducer";
+import { loadPhotosLoadingAction } from "../store/action-creators/action-creators";
 import "../styles/style.scss";
+import ErrorComponent from "../components/ErrorComponent";
 
 function Gallery() {
   const dispatch = useDispatch();
-
-  const [fetchPhotos, isPhotosLoading, photosError] = useFetching(() => {
-    dispatch(fetchPhotosAction());
-  });
+  const { loading, error } = useSelector((state) => state.photos);
 
   useEffect(() => {
-    fetchPhotos();
+    dispatch(loadPhotosLoadingAction());
   }, []);
 
   return (
-    <div>
-      {photosError && <p>Произошла ошибка {photosError}</p>}
-      {isPhotosLoading ? <Loader /> : <PhotosList />}
-    </div>
+    <Container>
+      {error && (
+        <ErrorComponent>
+          Произошла ошибка при загрузке фото: {error}
+        </ErrorComponent>
+      )}
+      {loading ? <Loader /> : <PhotosList />}
+    </Container>
   );
 }
 

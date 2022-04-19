@@ -4,26 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
-import { useFetching } from "../hooks/useFetching";
-import { fetchSinglePhotoAction } from "../store/photosReducer";
+import { loadSinglePhotoLoadingAction } from "../store/action-creators/action-creators";
+import ErrorComponent from "../components/ErrorComponent";
 
 const PhotoIdPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const photo = useSelector((state) => state.photos.photo);
-
-  const [fetchPhoto, isPhotoLoading, photoError] = useFetching((id) => {
-    dispatch(fetchSinglePhotoAction(id));
-  });
+  const { loading, error } = useSelector((state) => state.photos);
+  const photo = useSelector((state) => state.photos.singlePhoto);
 
   useEffect(() => {
-    fetchPhoto(params.id);
+    dispatch(loadSinglePhotoLoadingAction(params.id));
   }, []);
 
   return (
     <Container>
-      {photoError && <h2>Произошла ошибка при загрузке фото: {photoError}</h2>}
-      {isPhotoLoading ? (
+      {error && (
+        <ErrorComponent>
+          Произошла ошибка при загрузке фото: {error}
+        </ErrorComponent>
+      )}
+      {loading ? (
         <Loader />
       ) : (
         <Card>

@@ -1,31 +1,34 @@
-const defaultState = {
-  photos: [],
-  photo: {},
-};
+import {
+  LOAD_PHOTOS_LOADING,
+  LOAD_PHOTOS_ERROR,
+  LOAD_PHOTOS_SUCCESS,
+  LOAD_SINGLE_PHOTO_ERROR,
+  LOAD_SINGLE_PHOTO_LOADING,
+  LOAD_SINGLE_PHOTO_SUCCESS,
+} from "./actions/actions";
 
-export const SET_PHOTOS = "SET_PHOTOS";
-export const FETCH_PHOTOS = "FETCH_PHOTOS";
-export const SET_SINGLE_PHOTO = "SET_SINGLE_PHOTO";
-export const FETCH_SINGLE_PHOTO = "FETCH_SINGLE_PHOTO";
+const defaultState = {
+  loading: false,
+  error: "",
+  photos: [],
+  singlePhoto: {},
+};
 
 export default function photosReducer(state = defaultState, action) {
   switch (action.type) {
-    case SET_PHOTOS:
-      return { ...state, photos: action.payload };
-    case SET_SINGLE_PHOTO:
-      return { ...state, photo: action.payload };
+    case LOAD_PHOTOS_LOADING:
+      return { ...state, loading: true, error: "" };
+    case LOAD_PHOTOS_ERROR:
+      return { ...state, loading: false, error: action.payload };
+    case LOAD_PHOTOS_SUCCESS:
+      return { ...state, loading: false, photos: action.payload };
+    case LOAD_SINGLE_PHOTO_LOADING:
+      return { ...state, loading: true, error: "" };
+    case LOAD_SINGLE_PHOTO_ERROR:
+      return { ...state, loading: false, error: action.payload };
+    case LOAD_SINGLE_PHOTO_SUCCESS:
+      return { ...state, loading: false, singlePhoto: action.payload };
     default:
       return state;
   }
 }
-
-export const setPhotosAction = (payload) => ({ type: SET_PHOTOS, payload });
-export const fetchPhotosAction = () => ({ type: FETCH_PHOTOS });
-export const setSinglePhotoAction = (payload) => ({
-  type: SET_SINGLE_PHOTO,
-  payload,
-});
-export const fetchSinglePhotoAction = (payload) => ({
-  type: FETCH_SINGLE_PHOTO,
-  payload,
-});
